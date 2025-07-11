@@ -1,6 +1,16 @@
-import * as eventService from "../services/eventServices.js";
+import * as eventService from "../services/event.services.js";
 
 export const getEvents = async (req, res) => {
+  console.log("Session ID:", req.session.id);
+  req.sessionStore.get(req.session.id, (err, sessionData) => {
+    if (err) {
+      console.log(err);
+      throw err;
+    }
+
+    console.log(sessionData);
+  });
+
   try {
     const events = await eventService.getEvents();
     res.status(200).json(events);
