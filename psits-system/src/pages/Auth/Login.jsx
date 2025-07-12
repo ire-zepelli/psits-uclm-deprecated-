@@ -1,9 +1,31 @@
 import axios from "axios";
 import LoginForm from "../../components/LoginForm";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Login() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/auth/status",
+          { withCredentials: true }
+        );
+
+        if (response.status === 200) {
+          console.log("Already Authenticated");
+          navigate(-1);
+        }
+      } catch (err) {
+        console.log("Not authenticated", err);
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
+
   const handleSubmit = async (userData) => {
     try {
       const response = await axios.post(

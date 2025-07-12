@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "../../components/NavBar";
+import NavBar from "../../components/Navbar";
 import { useState } from "react";
 import { Table } from "antd";
 import EventModalForm from "../../components/EventsModalForm";
