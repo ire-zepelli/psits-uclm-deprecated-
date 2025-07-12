@@ -10,5 +10,7 @@ export const login = async (id, password) => {
 
   const validPassword = await compare(password, user.password);
 
-  return validPassword;
+  console.log("user:", user);
+
+  return { validPassword, isAdmin: user.is_admin };
 };

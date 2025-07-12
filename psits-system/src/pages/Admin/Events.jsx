@@ -5,12 +5,32 @@ import { Table } from "antd";
 import EventModalForm from "../../components/EventsModalForm";
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Events() {
   const [isOpen, setIsOpen] = useState(false);
   const [eventData, setEventData] = useState(null);
   const [modalMode, setModalMode] = useState("add");
   const [tableData, setTableData] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/auth/status",
+          { withCredentials: true }
+        );
+        console.log("User authenticated:", response.data);
+      } catch (err) {
+        console.log(err);
+
+        console.log("Not authenticated");
+        navigate("/");
+      }
+    };
+    checkAuth();
+  }, [navigate]);
 
   const fetchData = async () => {
     try {

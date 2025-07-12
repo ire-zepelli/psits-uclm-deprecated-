@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 export const getStudents = async () => {
   const { rows } = await query(
-    "SELECT account_id, id, name, level, email, last_online FROM students ORDER BY account_id ASC"
+    "SELECT account_id, id, name, level, email FROM students ORDER BY account_id ASC"
   );
   return rows;
 };

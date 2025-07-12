@@ -27,7 +27,6 @@ export default function Table({ handleOpen, tableData, setError, error }) {
               <th>Name</th>
               <th>Yr & Section</th>
               <th>Email</th>
-              <th>Last Login</th>
             </tr>
           </thead>
           <tbody>
@@ -38,9 +37,7 @@ export default function Table({ handleOpen, tableData, setError, error }) {
                   <td>{student.name}</td>
                   <td>{student.level}</td>
                   <td>{student.email}</td>
-                  <td>
-                    {student.last_online == null ? "-" : student.last_online}
-                  </td>
+
                   <td className="flex gap-5 w-24">
                     <button
                       className="btn btn-secondary"
@@ -69,7 +66,6 @@ export default function Table({ handleOpen, tableData, setError, error }) {
               <th>Name</th>
               <th>Yr & Section</th>
               <th>Email</th>
-              <th>Last Login</th>
             </tr>
           </tfoot>
         </table>

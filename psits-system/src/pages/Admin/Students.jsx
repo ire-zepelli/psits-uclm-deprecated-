@@ -3,6 +3,7 @@ import StudentModalForm from "../../components/StudentModalForm";
 import NavBar from "../../components/NavBar";
 import Table from "../../components/Table";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Students() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,10 +11,30 @@ export default function Students() {
   const [studentData, setStudentData] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/auth/status",
+          { withCredentials: true }
+        );
+        console.log("User authenticated:", response.data);
+      } catch (err) {
+        console.log(err);
+
+        console.log("Not authenticated");
+        navigate("/");
+      }
+    };
+    checkAuth();
+  }, [navigate]);
 
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/students");
+
       setTableData(response.data);
     } catch (err) {
       setError(err.message);
