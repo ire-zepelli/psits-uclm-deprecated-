@@ -8,7 +8,6 @@ import FlagIcon from "@mui/icons-material/Flag";
 import EventIcon from "@mui/icons-material/Event";
 import { Link } from "react-router-dom";
 import { Table } from "antd";
-import { recent_events } from "./recent_events";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
