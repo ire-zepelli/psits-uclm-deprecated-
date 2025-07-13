@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import StudentModalForm from "../../components/StudentModalForm";
-import NavBar from "../../components/NavBar";
-import Table from "../../components/Table";
+import { Table } from "antd";
 import axios from "axios";
+import Button from "../../components/Button";
+import PersonIcon from "@mui/icons-material/Person";
+import AddIcon from "@mui/icons-material/Add";
+import AdminLayout from "../AdminLayout";
 import { useNavigate } from "react-router-dom";
 
 export default function Students() {
@@ -10,7 +13,7 @@ export default function Students() {
   const [modalMode, setModalMode] = useState("add");
   const [studentData, setStudentData] = useState(null);
   const [tableData, setTableData] = useState([]);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,10 +37,12 @@ export default function Students() {
   const fetchData = async () => {
     try {
       const response = await axios.get("http://localhost:3000/api/students");
+      console.log("data:", response.data);
 
       setTableData(response.data);
     } catch (err) {
-      setError(err.message);
+      // setError(err.message);
+      console.log(err);
     }
   };
 
@@ -99,19 +104,97 @@ export default function Students() {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this student?"
+    );
+    if (confirmDelete) {
+      try {
+        console.log(id);
+
+        await axios.delete(`http://localhost:3000/api/students/${id}`);
+
+        setTableData((prevData) =>
+          prevData.filter((student) => student.account_id !== id)
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const columns = [
+    {
+      title: "Student ID",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Grade & Section",
+      dataIndex: "level",
+      key: "level",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Actions",
+      key: "actions",
+      render: (_, record) => (
+        <div className="flex gap-2 flex-wrap">
+          <button
+            className="btn btn-secondary"
+            onClick={() => {
+              handleOpen("edit", record);
+            }}
+          >
+            Update
+          </button>
+          <button
+            className="btn btn-accent"
+            onClick={() => {
+              handleDelete(record.account_id);
+            }}
+          >
+            Delete
+          </button>
+        </div>
+      ),
+    },
+  ];
+
   return (
-    <>
-      <NavBar
-        onOpen={() => {
-          handleOpen("add");
-        }}
-      />
+    <AdminLayout>
+      <div className="flex items-center gap-4">
+        <PersonIcon className="text-blue-700 bg-blue-100" fontSize="large" />
+        <div className="flex-1">
+          <h1 className="text-3xl font-bold">Students</h1>
+          <p className="text-l">Manage student records and information</p>
+        </div>
+        <Button
+          icon={<AddIcon />}
+          styles={"bg-black text-white hover:bg-gray-900 rounded-lg"}
+          handleClick={() => {
+            handleOpen("add");
+          }}
+        >
+          Add Students
+        </Button>
+      </div>
+
       <Table
-        handleOpen={handleOpen}
-        tableData={tableData}
-        setError={setError}
-        error={error}
+        className="border border-gray-200 rounded shadow-sm"
+        dataSource={tableData}
+        columns={columns}
       />
+
       <StudentModalForm
         isOpen={isOpen}
         onClose={handleClose}
@@ -119,6 +202,6 @@ export default function Students() {
         mode={modalMode}
         studentData={studentData}
       />
-    </>
+    </AdminLayout>
   );
 }

@@ -37,6 +37,7 @@ export default function StudentModalForm({
       const studentData = { id, name, password, level, email };
       setPassword("");
       await OnSubmit(studentData);
+      onClose();
     } catch (err) {
       console.log("Error adding student", err);
     }
@@ -63,70 +64,77 @@ export default function StudentModalForm({
       <dialog id="my_modal_2" className="modal" open={isOpen}>
         <div className="modal-box">
           <h3 className="font-bold text-lg">
-            {mode === "edit" ? "Edit Student" : "Student Details"}
+            {mode === "edit" ? "Edit Student" : "Add New Student"}
           </h3>
+          <p className="text-xs text-gray-400">
+            {mode === "edit"
+              ? "Update the student details below."
+              : "Fill in the details to add a new student."}
+          </p>
 
           <form
-            className="flex flex-col gap-2 mt-2 mb-2"
+            className="flex flex-col gap-2 mt-6 mb-2"
             onSubmit={handleSubmit}
           >
-            <label className="input input-bordered flex items-center gap-2">
-              ID
-              <input
-                type="number"
-                className="grow"
-                placeholder="123123"
-                value={id}
-                onChange={handleIDChange}
-              ></input>
-            </label>
+            <legend className="fieldset-legend text-sm p-0">Name</legend>
+            <input
+              type="text"
+              className="input w-full"
+              placeholder="John Doe"
+              value={name}
+              onChange={handleNameChange}
+            />
+            <div className="flex justify-between gap-4 items-center">
+              <div>
+                <legend className="fieldset-legend text-sm p-1">
+                  Student ID
+                </legend>
+                <input
+                  type="text"
+                  className="input w-full"
+                  placeholder="Enter ID"
+                  value={id}
+                  onChange={handleIDChange}
+                />
+              </div>
+              <div>
+                <legend className="fieldset-legend text-sm p-1">Level</legend>
+                <input
+                  type="text"
+                  className="input w-full"
+                  placeholder="BSIT-3E"
+                  value={level}
+                  onChange={handleLevelChange}
+                />
+              </div>
+            </div>
 
-            <label className="input input-bordered flex items-center gap-2">
-              Name
-              <input
-                type="text"
-                className="grow"
-                placeholder="Benedict"
-                value={name}
-                onChange={handleNameChange}
-              ></input>
-            </label>
+            <legend className="fieldset-legend text-sm">Email</legend>
+            <input
+              type="email"
+              className="input w-full"
+              placeholder="johndoe@gmail.com"
+              value={email}
+              onChange={handleEmailChange}
+            />
 
-            <label className="input input-bordered flex items-center gap-2">
-              Password
-              <input
-                type="text"
-                className="grow"
-                placeholder="itsasecret"
-                value={password}
-                onChange={handlePasswordChange}
-              ></input>
-            </label>
-            <label className="input input-bordered flex items-center gap-2">
-              Yr & Section
-              <input
-                type="text"
-                className="grow"
-                placeholder="BSIT-3A"
-                value={level}
-                onChange={handleLevelChange}
-              ></input>
-            </label>
+            <legend className="fieldset-legend text-sm">Password</legend>
+            <input
+              type="password"
+              className="input w-full"
+              placeholder="secret :p"
+              value={password}
+              onChange={handlePasswordChange}
+            />
 
-            <label className="input input-bordered flex items-center gap-2">
-              Email
-              <input
-                type="text"
-                className="grow"
-                placeholder="benandben@gmail.com"
-                value={email}
-                onChange={handleEmailChange}
-              ></input>
-            </label>
-
-            <button className="btn btn-success" type="submit">
-              {mode === "edit" ? "Save Changes" : "Add Student"}
-            </button>
+            <div className="flex gap-2 mt-5 justify-end">
+              <button className="btn btn-default" onClick={onClose}>
+                Cancel
+              </button>
+              <button className="btn btn-neutral" type="submit">
+                {mode === "edit" ? "Update Event" : "Add Event"}
+              </button>
+            </div>
           </form>
         </div>
         <form method="dialog" className="modal-backdrop">

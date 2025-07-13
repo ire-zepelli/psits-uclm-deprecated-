@@ -1,11 +1,13 @@
-import React from "react";
-import NavBar from "../../components/Navbar";
 import { useState } from "react";
 import { Table } from "antd";
 import EventModalForm from "../../components/EventsModalForm";
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import AdminLayout from "../AdminLayout";
+import AddIcon from "@mui/icons-material/Add";
+import Button from "../../components/Button";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 
 export default function Events() {
   const [isOpen, setIsOpen] = useState(false);
@@ -59,6 +61,8 @@ export default function Events() {
     if (confirmDelete) {
       try {
         await axios.delete(`http://localhost:3000/api/events/${id}`);
+
+        setTableData((prevData) => prevData.filter((event) => event.id !== id));
       } catch (error) {
         console.err(error);
       }
@@ -69,13 +73,10 @@ export default function Events() {
     if (modalMode == "add") {
       console.log("New Event", newEventData);
       try {
-        const response = await axios.post(
-          "http://localhost:3000/api/events/",
-          newEventData
-        );
-        console.log("Event added: ", response.data);
+        await axios.post("http://localhost:3000/api/events/", newEventData);
+        console.log("Event added: ", newEventData);
 
-        setTableData((prevData) => [...prevData, response.data]);
+        setTableData((prevData) => [...prevData, newEventData]);
       } catch (error) {
         console.error(error);
       }
@@ -90,14 +91,7 @@ export default function Events() {
         console.log("Event Updated: ", response.data);
         setTableData((prevData) =>
           prevData.map((event) =>
-            event.id === newEventData.id
-              ? {
-                  image: response.data.image,
-                  title: response.data.title,
-                  description: response.data.description,
-                  author: response.data.author,
-                }
-              : event
+            event.id === newEventData.id ? { ...event, ...newEventData } : event
           )
         );
       } catch (error) {
@@ -108,7 +102,7 @@ export default function Events() {
 
   useEffect(() => {
     fetchData();
-  }, [tableData]);
+  }, []);
 
   const columns = [
     {
@@ -120,7 +114,7 @@ export default function Events() {
           <img
             src={text}
             alt="event"
-            className="w-24 h-24 object-cover rounded"
+            className="w-10 h-10 object-cover rounded"
           />
         );
       },
@@ -133,19 +127,30 @@ export default function Events() {
     {
       title: "Description",
       dataIndex: "description",
-      key: "decription",
+      key: "description",
       ellipsis: true,
     },
     {
-      title: "Author",
-      dataIndex: "author",
-      key: "author",
+      title: "Date & Time",
+      dataIndex: "date_time",
+      key: "date_time",
+      render: (_, record) => <div>{formatDateTime(record.date_time)}</div>,
+    },
+    {
+      title: "Location",
+      dataIndex: "location",
+      key: "location",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
     },
     {
       title: "Actions",
       key: "actions",
       render: (_, record) => (
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <button
             className="btn btn-secondary"
             onClick={() => {
@@ -167,14 +172,45 @@ export default function Events() {
     },
   ];
 
+  function formatDateTime(dateStr) {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    };
+
+    return new Date(dateStr).toLocaleString("en-US", options);
+  }
+
   return (
-    <>
-      <NavBar
-        onOpen={() => {
-          handleOpen("add");
-        }}
+    <AdminLayout>
+      <div className="flex items-center gap-4">
+        <EventAvailableIcon
+          className="text-green-700 bg-green-100"
+          fontSize="large"
+        />
+        <div className="flex-1">
+          <h1 className="text-3xl font-bold">Events</h1>
+          <p className="text-l">Create and manage school events</p>
+        </div>
+        <Button
+          icon={<AddIcon />}
+          styles={"bg-black text-white hover:bg-gray-900 rounded-lg"}
+          handleClick={() => {
+            handleOpen("add");
+          }}
+        >
+          Add Event
+        </Button>
+      </div>
+      <Table
+        className="border border-gray-200 rounded shadow-sm"
+        dataSource={tableData}
+        columns={columns}
       />
-      <Table dataSource={tableData} columns={columns} />
       <EventModalForm
         isOpen={isOpen}
         mode={modalMode}
@@ -182,6 +218,6 @@ export default function Events() {
         OnSubmit={handleSubmit}
         eventData={eventData}
       />
-    </>
+    </AdminLayout>
   );
 }

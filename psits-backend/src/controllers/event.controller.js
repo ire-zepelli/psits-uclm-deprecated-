@@ -10,6 +10,16 @@ export const getEvents = async (req, res) => {
   }
 };
 
+export const getRecentEvents = async (req, res) => {
+  try {
+    const events = await eventService.getRecentEvents();
+    res.status(200).json(events);
+  } catch (error) {
+    console.err("Error fetching events: ", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export const createEvent = async (req, res) => {
   try {
     const eventData = req.body;
