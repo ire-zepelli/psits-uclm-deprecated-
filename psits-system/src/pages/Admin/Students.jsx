@@ -5,7 +5,7 @@ import axios from "axios";
 import Button from "../../components/Button";
 import PersonIcon from "@mui/icons-material/Person";
 import AddIcon from "@mui/icons-material/Add";
-import AdminLayout from "../AdminLayout";
+import AdminLayout from "./AdminLayout";
 import { useNavigate } from "react-router-dom";
 
 export default function Students() {

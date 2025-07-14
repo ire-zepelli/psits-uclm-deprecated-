@@ -2,6 +2,7 @@ import axios from "axios";
 import LoginForm from "../../components/LoginForm";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import StudentLayout from "../Student/StudentLayout";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -54,8 +55,13 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center align-center mt-40">
-      <LoginForm handleSubmit={handleSubmit} />
-    </div>
+    <StudentLayout>
+      <div
+        data-theme="dracula"
+        className="bg-[#1f0d1d] flex justify-center align-center pt-40"
+      >
+        <LoginForm handleSubmit={handleSubmit} />
+      </div>
+    </StudentLayout>
   );
 }
