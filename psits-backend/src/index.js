@@ -7,6 +7,8 @@ import session from "express-session";
 
 const app = express();
 const port = 3000;
+app.set("trust proxy", 1); // trust first proxy
+app.use(express.json());
 
 app.use(
   cors({
@@ -14,19 +16,24 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json());
 
 app.use(
   session({
-    secret: "some secret",
+    name: "qid",
+    cookie: {
+      maxAge: 1000 * 60 * 20,
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+    },
     saveUninitialized: false,
+    secret: "default secret",
     resave: false,
-    cookie: { maxAge: 60000 * 60 },
   })
 );
 
-app.use("/api/students", studentRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/students", studentRoutes);
 app.use("/api/events", eventRoutes);
 
 app.listen(port, () => {

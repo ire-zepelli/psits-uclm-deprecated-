@@ -12,6 +12,7 @@ import Login from "./pages/Auth/Login";
 import Events from "./pages/Admin/Events";
 import StudentDashboard from "./pages/Student/StudentDashboard";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
+import Report from "./pages/Admin/Report";
 
 function App() {
   const router = createBrowserRouter(
@@ -24,6 +25,7 @@ function App() {
           <Route index element={<AdminDashboard />} />
           <Route path="students" element={<Students />} />
           <Route path="events" element={<Events />} />
+          <Route path="reports" element={<Report />} />
         </Route>
 
         {/* Student Routes */}

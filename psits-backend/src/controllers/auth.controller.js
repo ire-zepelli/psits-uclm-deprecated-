@@ -13,6 +13,7 @@ export const login = async (req, res) => {
 
     if (result.validPassword) {
       req.session.user = { user, isAdmin: result.isAdmin };
+
       return res.status(200).json(req.session.user);
     }
 
@@ -24,7 +25,7 @@ export const login = async (req, res) => {
 
 export const status = async (req, res) => {
   req.sessionStore.get(req.sessionID, (err, session) => {
-    console.log("Session:", session);
+    console.log("Session Status:", session);
   });
   return req.session.user
     ? res.status(200).json(req.session.user)

@@ -132,13 +132,13 @@ export default function StudentModalForm({
                 Cancel
               </button>
               <button className="btn btn-neutral" type="submit">
-                {mode === "edit" ? "Update Event" : "Add Event"}
+                {mode === "edit" ? "Update Student" : "Add Student"}
               </button>
             </div>
           </form>
         </div>
         <form method="dialog" className="modal-backdrop">
-          <button onClick={onClose}>close</button>
+          <button onClick={onClose}>Close</button>
         </form>
       </dialog>
     </>

@@ -22,7 +22,6 @@ export default function Login() {
         console.log("Not authenticated", err);
       }
     };
-
     checkAuth();
   }, [navigate]);
 
@@ -36,6 +35,7 @@ export default function Login() {
         }
       );
 
+      console.log(response.data.isAdmin);
       if (response.status == 200) {
         if (response.data.isAdmin) {
           console.log("routing to admin");

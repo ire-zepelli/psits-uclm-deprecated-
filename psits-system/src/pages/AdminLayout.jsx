@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "/psits logo.png";
 import PeopleIcon from "@mui/icons-material/People";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -6,12 +6,14 @@ import EventIcon from "@mui/icons-material/Event";
 import ReportIcon from "@mui/icons-material/Report";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
+import Loading from "../components/Loading";
 
 export default function AdminLayout({ children }) {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -21,6 +23,11 @@ export default function AdminLayout({ children }) {
           { withCredentials: true }
         );
         console.log("User authenticated:", response.data);
+
+        if (!response.data.isAdmin) {
+          navigate("/");
+        }
+        setIsLoading(false);
       } catch (err) {
         console.log(err);
 
@@ -31,7 +38,9 @@ export default function AdminLayout({ children }) {
     checkAuth();
   }, [navigate]);
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <div>
       <div className="drawer">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />

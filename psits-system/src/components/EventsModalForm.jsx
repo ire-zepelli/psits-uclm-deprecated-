@@ -169,7 +169,7 @@ export default function EventModalForm({
                 value={status}
                 onChange={handleStatusChange}
               >
-                <option disabled>Select Status</option>
+                <option selected>Select Status</option>
                 <option>Upcoming</option>
                 <option>Ongoing</option>
                 <option>Completed</option>
