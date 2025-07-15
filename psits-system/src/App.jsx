@@ -17,6 +17,7 @@ import ErrorPage from "./pages/ErrorPage";
 import About from "./pages/Student/About";
 import Events from "./pages/Student/Events";
 import Reports from "./pages/Student/Reports";
+import Posts from "./pages/Admin/Posts";
 
 function App() {
   const router = createBrowserRouter(
@@ -30,6 +31,7 @@ function App() {
           <Route path="students" element={<Students />} />
           <Route path="events" element={<AdminEvents />} />
           <Route path="reports" element={<Report />} />
+          <Route path="posts" element={<Posts />} />
         </Route>
 
         {/* Student Routes */}

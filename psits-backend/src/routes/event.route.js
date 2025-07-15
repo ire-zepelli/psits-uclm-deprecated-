@@ -5,8 +5,8 @@ import { authorizeAdmin } from "../middleware/auth.js";
 const router = express.Router();
 
 router.get("/", authorizeAdmin, eventController.getEvents);
-router.get("/recent", authorizeAdmin, eventController.getRecentEvents);
 router.post("/", authorizeAdmin, eventController.createEvent);
+router.get("/recent", eventController.getRecentEvents);
 router.put("/:id", authorizeAdmin, eventController.updateEvent);
 router.delete("/:id", authorizeAdmin, eventController.deleteEvent);
 

@@ -108,6 +108,12 @@ export default function AdminLayout({ children }) {
                 Events
               </Link>
             </li>
+            <li>
+              <Link to={"/admin/posts"}>
+                <EventIcon className="text-gray-700 text-sm" />
+                Community Posts
+              </Link>
+            </li>
 
             <p className="text-gray-500 text-s mt-7">System</p>
             <li>
@@ -122,11 +128,11 @@ export default function AdminLayout({ children }) {
                 <AdminPanelSettingsIcon className="text-gray-700 text-sm" />
                 Admin-1
               </Link>
-              <li className="flex justify-end p-0">
-                <btn className="btn w-full border-none" onClick={handleLogout}>
-                  Logout
-                </btn>
-              </li>
+            </li>
+            <li className="flex justify-end p-0">
+              <button className="btn w-full border-none" onClick={handleLogout}>
+                Logout
+              </button>
             </li>
           </ul>
         </div>

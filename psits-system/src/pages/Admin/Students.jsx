@@ -88,7 +88,7 @@ export default function Students() {
           prevData.map((student) =>
             student.id === studentData.id
               ? {
-                  account_id: response["account_id"],
+                  account_id: response.account_id,
                   id: response.data.id,
                   name: response.data.name,
                   level: response.data.level,

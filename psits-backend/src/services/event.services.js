@@ -19,6 +19,8 @@ export const createEvent = async (eventData) => {
     `INSERT INTO events (image, title, description, date_time, location, status) VALUES ($1, $2, $3, $4, $5, $6)`,
     [image, title, description, date_time, location, status]
   );
+
+  return rows[0];
 };
 
 export const deleteEvent = async (eventId) => {
@@ -37,12 +39,12 @@ export const updateEvent = async (eventData, eventID) => {
       [title, description, date_time, location, status, eventID]
     );
 
-    return rows;
+    return rows[0];
   } else {
     const { rows } = await query(
       `UPDATE events SET title = $1, description = $2, date_time = $3, image = $4, location = $5, status = $6 WHERE id = $7 RETURNING *`,
       [title, description, date_time, image, location, status, eventID]
     );
-    return rows;
+    return rows[0];
   }
 };

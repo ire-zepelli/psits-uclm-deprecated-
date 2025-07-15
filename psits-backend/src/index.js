@@ -3,6 +3,7 @@ import cors from "cors";
 import studentRoutes from "./routes/student.route.js";
 import authRoutes from "./routes/auth.route.js";
 import eventRoutes from "./routes/event.route.js";
+import postRoutes from "./routes/post.route.js";
 import session from "express-session";
 
 const app = express();
@@ -35,6 +36,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/students", studentRoutes);
 app.use("/api/events", eventRoutes);
+app.use("/api/posts", postRoutes);
 
 app.listen(port, () => {
   console.log("Listening on port 3000");
