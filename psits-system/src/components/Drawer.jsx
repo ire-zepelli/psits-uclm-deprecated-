@@ -31,12 +31,12 @@ export default function Drawer({ onClose, isOpen }) {
           />
         </div>
         <ul className="pt-10 flex flex-col gap-4">
-          <li className="flex items-center border-b gap-5 hover:border-[#C89900] hover:pl-[10px] hover:text-[#C89900] transition-all duration-200">
+          {/* <li className="flex items-center border-b gap-5 hover:border-[#C89900] hover:pl-[10px] hover:text-[#C89900] transition-all duration-200">
             <LoginIcon fontSize="" className="text-[2rem] " />
             <Link to="/login" className="text-[25px]">
               Login
             </Link>
-          </li>
+          </li> */}
           <li className="flex items-center border-b gap-5 hover:border-[#C89900] hover:pl-[10px] hover:text-[#C89900] transition-all duration-200">
             <DashboardIcon fontSize="" className="text-[2rem] " />
             <Link to="/" className="text-[25px]">

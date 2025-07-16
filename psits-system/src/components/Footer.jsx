@@ -4,7 +4,7 @@ import facebook from "/facebook-icon.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-[1f0d1d] flex flex-col items-start justify-center p-30">
+    <footer className="bg-[1f0d1d] flex flex-col items-start justify-center p-30 pb-10">
       <h1 className="text-white text-[5rem] font-bold">PSITS</h1>
       <div className="w-[70vw] flex justify-between">
         <div>

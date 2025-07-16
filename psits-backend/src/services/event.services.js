@@ -1,7 +1,7 @@
 import { query } from "../db.js";
 
 export const getEvents = async () => {
-  const { rows } = await query("SELECT * from events ORDER BY id ASC");
+  const { rows } = await query("SELECT * from events ORDER BY id DESC");
   return rows;
 };
 

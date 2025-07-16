@@ -72,10 +72,10 @@ export default function StudentDashboard() {
       </div>
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#1f0d1d]/100 to-transparent" />
-      <EventsOverview />
+      {/* <EventsOverview />
       <h1 className="text-center text-white">
         More to come in the forseeable future heh........
-      </h1>
+      </h1> */}
     </StudentLayout>
   );
 }
