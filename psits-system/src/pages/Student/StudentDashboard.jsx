@@ -3,20 +3,24 @@ import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import hero from "/hero_image.JPG";
 import { Carousel } from "antd";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import EventsOverview from "./EventsOverview";
 import Footer from "../../components/Footer";
 import StudentLayout from "./StudentLayout";
 
 export default function StudentDashboard() {
   const carouselRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const onChange = (currentSlide) => {
-    console.log(currentSlide);
+  const onChange = (index) => {
+    console.log("changing to:", index);
+    setCurrentSlide(index);
   };
 
   const goToSlide = (index) => {
+    console.log("going to:", index);
     carouselRef.current.goTo(index);
+    setCurrentSlide(index);
   };
 
   return (
@@ -29,7 +33,7 @@ export default function StudentDashboard() {
           autoplay
         >
           <div>
-            <img src={hero} className="w-full h-full object-cover " />
+            <img src={hero} className="w-full h-full object-cover  " />
           </div>
           <div>
             <img src={hero} className="w-full h-full object-cover" />
@@ -45,28 +49,16 @@ export default function StudentDashboard() {
             <span className="text-[#C89900]">CESAFI 2025: </span>
             Computer Quiz Bowl
           </h1>
-          <div className="flex justify-center items-center w-full gap-4">
-            <button
-              onClick={() => {
-                goToSlide("0");
-              }}
-            >
-              <span className="w-[50px] h-[5px] bg-[#C89900] inline-block rounded-full"></span>
-            </button>
-            <button
-              onClick={() => {
-                goToSlide("1");
-              }}
-            >
-              <span className="w-[50px] h-[5px] bg-white inline-block rounded-full"></span>
-            </button>
-            <button
-              onClick={() => {
-                goToSlide("2");
-              }}
-            >
-              <span className="w-[50px] h-[5px] bg-white inline-block rounded-full"></span>
-            </button>
+          <div className="flex justify-center items-center w-full gap-4 ">
+            {[0, 1, 2].map((slide) => (
+              <button key={slide} onClick={() => goToSlide(slide.toString())}>
+                <span
+                  className={`w-[20px] h-[5px] inline-block rounded-full transition-transform duration-300 ease-in-out hover:scale-200 ${
+                    currentSlide === slide ? "bg-[#C89900]" : "bg-white"
+                  }`}
+                ></span>
+              </button>
+            ))}
           </div>
         </div>
       </div>

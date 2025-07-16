@@ -24,6 +24,8 @@ export default function AdminEvents() {
   };
 
   const handleOpen = (mode, event) => {
+    console.log("record:", event);
+
     setEventData(event);
     setIsOpen(true);
     setModalMode(mode);

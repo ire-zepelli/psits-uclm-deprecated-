@@ -49,6 +49,7 @@ export default function EventModalForm({
     e.preventDefault();
     try {
       const id = eventData?.id || eventData?.key;
+      console.log(eventData);
 
       const newEventData =
         mode == "edit"

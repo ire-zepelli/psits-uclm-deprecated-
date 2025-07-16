@@ -3,7 +3,6 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
-  Link,
   Outlet,
   RouterProvider,
 } from "react-router-dom";
@@ -16,6 +15,7 @@ import Report from "./pages/Admin/Report";
 import ErrorPage from "./pages/ErrorPage";
 import About from "./pages/Student/About";
 import Events from "./pages/Student/Events";
+import Event from "./pages/Student/Event";
 import Reports from "./pages/Student/Reports";
 import Posts from "./pages/Admin/Posts";
 
@@ -37,7 +37,10 @@ function App() {
         {/* Student Routes */}
         <Route index element={<StudentDashboard />} />
         <Route path="about" element={<About />} />
-        <Route path="events" element={<Events />} />
+        <Route path="events">
+          <Route index element={<Events />} />
+          <Route index path=":id" element={<Event />} />
+        </Route>
         <Route path="reports" element={<Reports />} />
 
         {/* Error Routes */}

@@ -1,13 +1,10 @@
-import React from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Drawer from "../../components/Drawer";
 import { useState } from "react";
-import Loading from "../../components/Loading";
 
 export default function StudentLayout({ children }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const handleOpen = () => {
     setIsOpen(true);
   };

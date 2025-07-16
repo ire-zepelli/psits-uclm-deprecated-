@@ -5,6 +5,11 @@ export const getEvents = async () => {
   return rows;
 };
 
+export const getEvent = async (eventID) => {
+  const { rows } = await query(`SELECT * from events WHERE id = $1`, [eventID]);
+  return rows;
+};
+
 export const getRecentEvents = async () => {
   const { rows } = await query(
     "SELECT * FROM events ORDER BY date_time DESC LIMIT 5"

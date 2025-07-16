@@ -7,6 +7,7 @@ const router = express.Router();
 router.get("/", eventController.getEvents);
 router.post("/", authorizeAdmin, eventController.createEvent);
 router.get("/recent", eventController.getRecentEvents);
+router.get("/:id", eventController.getEvent);
 router.put("/:id", authorizeAdmin, eventController.updateEvent);
 router.delete("/:id", authorizeAdmin, eventController.deleteEvent);
 
