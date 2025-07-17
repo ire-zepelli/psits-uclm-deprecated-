@@ -17,7 +17,9 @@ import About from "./pages/Student/About";
 import Events from "./pages/Student/Events";
 import Event from "./pages/Student/Event";
 import Reports from "./pages/Student/Reports";
-import Posts from "./pages/Admin/Posts";
+import AdminPosts from "./pages/Admin/AdminPosts";
+import Posts from "./pages/Student/Posts";
+import Announcement from "./pages/Student/Announcement";
 
 function App() {
   const router = createBrowserRouter(
@@ -31,12 +33,14 @@ function App() {
           <Route path="students" element={<Students />} />
           <Route path="events" element={<AdminEvents />} />
           <Route path="reports" element={<Report />} />
-          <Route path="posts" element={<Posts />} />
+          <Route path="posts" element={<AdminPosts />} />
         </Route>
 
         {/* Student Routes */}
         <Route index element={<StudentDashboard />} />
         <Route path="about" element={<About />} />
+        <Route path="posts" element={<Posts />} />
+        <Route path="announcement/:id" element={<Announcement />} />
         <Route path="events">
           <Route index element={<Events />} />
           <Route index path=":id" element={<Event />} />

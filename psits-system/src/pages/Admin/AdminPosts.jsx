@@ -16,7 +16,7 @@ import PostStatus from "../../components/PostStatusCard";
 import PostModalForm from "../../components/PostModalForm";
 import axios from "axios";
 
-export default function Posts() {
+export default function AdminPosts() {
   const [tableData, setTableData] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const [modalMode, setModalMode] = useState("add");

@@ -6,6 +6,14 @@ export const getPosts = async () => {
   return rows;
 };
 
+export const getPost = async (postID) => {
+  const { rows } = await query(`SELECT * from posts WHERE post_id = $1`, [
+    postID,
+  ]);
+
+  return rows[0];
+};
+
 export const createPost = async (postData) => {
   const { title, author, content, category, status, image, date } = postData;
 

@@ -6,6 +6,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import FlagIcon from "@mui/icons-material/Flag";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import InfoIcon from "@mui/icons-material/Info";
+import BookIcon from "@mui/icons-material/Book";
 
 export default function Drawer({ onClose, isOpen }) {
   return (
@@ -47,6 +48,12 @@ export default function Drawer({ onClose, isOpen }) {
             <InfoIcon fontSize="" className="text-[2rem] " />
             <Link to="/about" className="text-[25px]">
               About
+            </Link>
+          </li>
+          <li className="flex items-center border-b gap-5 hover:border-[#C89900] hover:pl-[10px] hover:text-[#C89900] transition-all duration-200">
+            <BookIcon fontSize="" className="text-[2rem] " />
+            <Link to="/posts" className="text-[25px]">
+              Blog Posts
             </Link>
           </li>
           <li className="flex items-center border-b gap-5 hover:border-[#C89900] hover:pl-[10px] hover:text-[#C89900] transition-all duration-200">

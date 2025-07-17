@@ -10,6 +10,18 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getPost = async (req, res) => {
+  try {
+    const postID = req.params.id;
+    const post = await postService.getPost(postID);
+
+    res.status(200).json(post);
+  } catch (err) {
+    console.err("Error fetching event: ", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+
 export const createPost = async (req, res) => {
   try {
     const postData = req.body;
