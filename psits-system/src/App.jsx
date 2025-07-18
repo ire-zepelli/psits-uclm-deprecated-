@@ -9,24 +9,20 @@ import {
 import "./App.css";
 import Login from "./pages/Auth/Login";
 import AdminEvents from "./pages/Admin/AdminEvents";
-import StudentDashboard from "./pages/Student/StudentDashboard";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import Report from "./pages/Admin/Report";
 import ErrorPage from "./pages/ErrorPage";
-import About from "./pages/Student/About";
-import Events from "./pages/Student/Events";
-import Event from "./pages/Student/Event";
-import Reports from "./pages/Student/Reports";
 import AdminPosts from "./pages/Admin/AdminPosts";
-import Posts from "./pages/Student/Posts";
-import Announcement from "./pages/Student/Announcement";
+import StudentLanding from "./pages/Student/StudentLanding";
+import Events from "./pages/Student/Events";
+import About from "./pages/Student/About";
+import Blog from "./pages/Student/Blog";
+import StudentLayout from "./pages/Student/StudentLayout";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
-        <Route path="login" element={<Login />} />
-
         {/* Admin Routes */}
         <Route path="admin">
           <Route index element={<AdminDashboard />} />
@@ -37,15 +33,13 @@ function App() {
         </Route>
 
         {/* Student Routes */}
-        <Route index element={<StudentDashboard />} />
-        <Route path="about" element={<About />} />
-        <Route path="posts" element={<Posts />} />
-        <Route path="announcement/:id" element={<Announcement />} />
-        <Route path="events">
-          <Route index element={<Events />} />
-          <Route index path=":id" element={<Event />} />
+        <Route element={<StudentLayout />}>
+          <Route index element={<StudentLanding />} />
+          <Route path="login" element={<Login />} />
+          <Route path="events" element={<Events />} />
+          <Route path="about" element={<About />} />
+          <Route path="blog" element={<Blog />} />
         </Route>
-        <Route path="reports" element={<Reports />} />
 
         {/* Error Routes */}
         <Route path="error/:error" element={<ErrorPage />} />
