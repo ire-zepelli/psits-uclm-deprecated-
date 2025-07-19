@@ -8,7 +8,7 @@ import InfoIcon from "@mui/icons-material/Info";
 const Drawer = ({ isOpen, onClose }) => {
   return (
     <div
-      className={`p-10 fixed inset-0 bg-[#1f0d1d] transition-transform duration-300 z-50 ${
+      className={`px-5 py-5 fixed inset-0 bg-[#1f0d1d] transition-transform duration-300 z-50 ${
         isOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >

@@ -18,6 +18,7 @@ import Events from "./pages/Student/Events";
 import About from "./pages/Student/About";
 import Blog from "./pages/Student/Blog";
 import StudentLayout from "./pages/Student/StudentLayout";
+import Event from "./pages/Student/Event";
 
 function App() {
   const router = createBrowserRouter(
@@ -37,6 +38,7 @@ function App() {
           <Route index element={<StudentLanding />} />
           <Route path="login" element={<Login />} />
           <Route path="events" element={<Events />} />
+          <Route path="/events/:id" element={<Event />} />
           <Route path="about" element={<About />} />
           <Route path="blog" element={<Blog />} />
         </Route>
