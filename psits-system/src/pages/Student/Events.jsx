@@ -1,5 +1,4 @@
 import React from "react";
-import StudentLayout from "./StudentLayout";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -31,7 +30,7 @@ export const Events = () => {
     status,
     error,
     data: events,
-  } = useQuery({ queryKey: "events", queryFn: getEvents });
+  } = useQuery({ queryKey: ["events"], queryFn: getEvents });
 
   if (status === "loading") return <h1>Loading...</h1>;
   if (status === "error") return <h1>{JSON.stringify(error)}</h1>;

@@ -20,7 +20,7 @@ export default function Event() {
     status,
     error,
     data: event,
-  } = useQuery({ queryKey: ["post"], queryFn: getEvent });
+  } = useQuery({ queryKey: ["event"], queryFn: getEvent });
 
   const handleBack = () => {
     navigate(-1);
@@ -74,22 +74,19 @@ export default function Event() {
             className="w-full h-full object-cover object-center"
           />
         </div>
-        <p className="text-justify text-sm leading-relaxed p-5 first-letter:text-4xl first-letter:font-bold first-letter:text-[#C89900] first-letter:mr-2 first-letter:float-left">
-          {event[0].description
-            .split(/\n+/) // Split on one or more newlines
-            .map((para, index) => (
-              <p
-                key={index}
-                className={`text-justify text-sm leading-relaxed p-4 ${
-                  index === 0
-                    ? "first-letter:text-4xl first-letter:font-bold first-letter:text-[#C89900] first-letter:mr-2 first-letter:float-left"
-                    : ""
-                }`}
-              >
-                {para}
-              </p>
-            ))}
-        </p>
+
+        {event[0].description.split(/\n+/).map((para, index) => (
+          <p
+            key={index}
+            className={`text-justify text-sm leading-relaxed p-4 ${
+              index === 0
+                ? "first-letter:text-4xl first-letter:font-bold first-letter:text-[#C89900] first-letter:mr-2 first-letter:float-left"
+                : ""
+            }`}
+          >
+            {para}
+          </p>
+        ))}
       </div>
     </div>
   );
