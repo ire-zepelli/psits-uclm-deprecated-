@@ -6,15 +6,14 @@ export default function ErrorPage() {
   return (
     <>
       {error ? (
-        <div className="h-32 flex justify-center items-center text-white text-5xl font-bold pt-40">
+        <div className="h-32 flex justify-center items-center text-center text-white text-5xl font-bold pt-40">
           {error}
         </div>
       ) : (
-        <div className="h-32 flex justify-center items-center text-white text-5xl font-bold pt-40">
+        <div className="h-32 flex justify-center items-center text-center text-white text-5xl font-bold pt-40">
           404 Page Not Found.
         </div>
       )}
-      ;
     </>
   );
 }

@@ -41,11 +41,10 @@ function App() {
           <Route path="/events/:id" element={<Event />} />
           <Route path="about" element={<About />} />
           <Route path="blog" element={<Blog />} />
+          {/* Error Routes */}
+          <Route path="error/:error" element={<ErrorPage />} />
+          <Route path="/*" element={<ErrorPage />} />
         </Route>
-
-        {/* Error Routes */}
-        <Route path="error/:error" element={<ErrorPage />} />
-        <Route path="/*" element={<ErrorPage />} />
       </Route>
     )
   );
