@@ -8,16 +8,16 @@ import bepo2 from "/bepo_proud.png";
 import image from "/hero_image.JPG";
 import image1 from "/about_image1.png";
 import image2 from "/about_image.png";
-import OfficersCarousel from "../../components/Student/OfficersCarousel";
+import CenterMode from "../../components/Student/CenterMode";
 
 const About = () => {
   return (
     <div className="flex flex-col p-4 gap-7 overflow-hidden">
       <div className="flex flex-col items-center justify-center relative">
         <h1 className="text-sm font-black text-[#C89900] pb-1 text-center border-b-2 mb-2">
-          The Team
+          Meet the Team
         </h1>
-        <OfficersCarousel />
+        <CenterMode />
         <img
           src={bepo1}
           alt="bepo jumping"

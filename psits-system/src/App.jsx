@@ -19,6 +19,7 @@ import About from "./pages/Student/About";
 import Blog from "./pages/Student/Blog";
 import StudentLayout from "./pages/Student/StudentLayout";
 import Event from "./pages/Student/Event";
+import Announcement from "./pages/Student/Annoucement";
 
 function App() {
   const router = createBrowserRouter(
@@ -41,6 +42,7 @@ function App() {
           <Route path="/events/:id" element={<Event />} />
           <Route path="about" element={<About />} />
           <Route path="blog" element={<Blog />} />
+          <Route path="blog/:id" element={<Announcement />} />
           {/* Error Routes */}
           <Route path="error/:error" element={<ErrorPage />} />
           <Route path="/*" element={<ErrorPage />} />

@@ -1,7 +1,7 @@
 import { query } from "../db.js";
 
 export const getPosts = async () => {
-  const { rows } = await query("SELECT * from posts ORDER BY post_id ASC");
+  const { rows } = await query("SELECT * from posts ORDER BY post_id DESC");
 
   return rows;
 };
