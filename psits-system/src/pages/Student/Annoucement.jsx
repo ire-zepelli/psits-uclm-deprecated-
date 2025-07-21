@@ -35,19 +35,6 @@ export default function Announcement() {
     });
   }
 
-  function formatStatus(status) {
-    switch (status) {
-      case 0:
-        return "Published";
-      case 1:
-        return "Draft";
-      case 2:
-        return "Archived";
-      default:
-        return "Unknown";
-    }
-  }
-
   function formatCategory(category) {
     switch (category) {
       case 0:
