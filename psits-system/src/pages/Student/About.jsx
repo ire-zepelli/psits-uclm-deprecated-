@@ -26,7 +26,7 @@ const About = () => {
       </div>
 
       {/* Mission */}
-      <div className="w-full h-50 bg-[#1F0D1D] border border-[#C89900] relative flex gap-4 overflow-visible mb-7">
+      <div className="w-full h-50 bg-[#1F0D1D] border border-dashed border-[#C89900] relative flex gap-4 overflow-visible mb-7">
         {/* Left Image */}
         <div className="w-1/2 h-full">
           <img
@@ -57,7 +57,7 @@ const About = () => {
       </div>
 
       {/* Vision */}
-      <div className="w-full h-50 bg-[#1F0D1D] border border-[#C89900] flex gap-4 relative mb-7">
+      <div className="w-full h-50 bg-[#1F0D1D] border border-dashed border-[#C89900] flex gap-4 relative mb-7">
         {/* Text */}
         <div className="text-white w-[50%] flex flex-col justify-center py-4 pl-1 text-end">
           <h1 className="text-xs font-bold text-[#C89900] pb-2">
@@ -87,7 +87,7 @@ const About = () => {
         />
       </div>
 
-      <h1 className="text-sm border-b-1 font-bold text-[#C89900] pb-1 text-center">
+      <h1 className="text-sm border-b-1 w-fit self-center font-bold text-[#C89900] pb-1 text-center">
         UCLM - PSITS Dev Team
       </h1>
       <div className="w-full flex justify-center gap-4 mb-5">
