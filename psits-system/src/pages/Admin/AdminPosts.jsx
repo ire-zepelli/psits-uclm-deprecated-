@@ -181,7 +181,7 @@ export default function AdminPosts() {
   ];
 
   return (
-    <AdminLayout>
+    <>
       <div>
         <div>
           <h1 className="text-3xl font-bold">Posts Management</h1>
@@ -282,6 +282,6 @@ export default function AdminPosts() {
           />
         </Card>
       </div>
-    </AdminLayout>
+    </>
   );
 }

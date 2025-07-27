@@ -86,7 +86,7 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <AdminLayout>
+    <>
       <div>
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <p className="text-l">
@@ -150,6 +150,6 @@ export default function AdminDashboard() {
           <Table dataSource={tableData} columns={columns} />
         </Card>
       </div>
-    </AdminLayout>
+    </>
   );
 }

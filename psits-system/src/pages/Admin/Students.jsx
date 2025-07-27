@@ -171,7 +171,7 @@ export default function Students() {
   ];
 
   return (
-    <AdminLayout>
+    <>
       <div className="flex items-center gap-4">
         <PersonIcon className="text-blue-700 bg-blue-100" fontSize="large" />
         <div className="flex-1">
@@ -202,6 +202,6 @@ export default function Students() {
         mode={modalMode}
         studentData={studentData}
       />
-    </AdminLayout>
+    </>
   );
 }

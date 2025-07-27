@@ -40,7 +40,7 @@ export default function Report() {
   ];
 
   return (
-    <AdminLayout>
+    <>
       <div>
         <h1 className="text-3xl font-bold">Reports</h1>
         <p className="text-l">View and Manage Student Concerns </p>
@@ -50,6 +50,6 @@ export default function Report() {
         dataSource={dataSource}
         columns={columns}
       />
-    </AdminLayout>
+    </>
   );
 }

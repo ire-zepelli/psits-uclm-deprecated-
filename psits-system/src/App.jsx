@@ -20,18 +20,21 @@ import Blog from "./pages/Student/Blog";
 import StudentLayout from "./pages/Student/StudentLayout";
 import Event from "./pages/Student/Event";
 import Announcement from "./pages/Student/Annoucement";
+import AdminLayout from "./pages/Admin/AdminLayout";
+import PrintingService from "./pages/Admin/PrintingService";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         {/* Admin Routes */}
-        <Route path="admin">
+        <Route path="admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="students" element={<Students />} />
           <Route path="events" element={<AdminEvents />} />
           <Route path="reports" element={<Report />} />
           <Route path="posts" element={<AdminPosts />} />
+          <Route path="printing" element={<PrintingService />} />
         </Route>
 
         {/* Student Routes */}

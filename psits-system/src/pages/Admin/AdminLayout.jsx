@@ -6,12 +6,13 @@ import EventIcon from "@mui/icons-material/Event";
 import ReportIcon from "@mui/icons-material/Report";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import axios from "axios";
 import Loading from "../../components/Loading";
+import PrintIcon from "@mui/icons-material/Print";
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -71,7 +72,9 @@ export default function AdminLayout({ children }) {
             <img src={logo} alt="psits" className="w-10 h-10" />
             <h1 className="text-xl font-medium">PSITS - UCLM</h1>
           </div>
-          <div className="flex flex-col p-5 gap-4">{children}</div>
+          <div className="flex flex-col p-5 gap-4">
+            <Outlet />
+          </div>
         </div>
         <div className="drawer-side">
           <label
@@ -112,6 +115,14 @@ export default function AdminLayout({ children }) {
               <Link to={"/admin/posts"}>
                 <EventIcon className="text-gray-700 text-sm" />
                 Community Posts
+              </Link>
+            </li>
+
+            <p className="text-gray-500 text-s mt-7">Services</p>
+            <li>
+              <Link to="/admin/printing" className="">
+                <PrintIcon className="text-gray-700 text-sm" />
+                Printing Service
               </Link>
             </li>
 

@@ -168,7 +168,7 @@ export default function AdminEvents() {
   }
 
   return (
-    <AdminLayout>
+    <>
       <div className="flex items-center gap-4">
         <EventAvailableIcon
           className="text-green-700 bg-green-100"
@@ -200,6 +200,6 @@ export default function AdminEvents() {
         OnSubmit={handleSubmit}
         eventData={eventData}
       />
-    </AdminLayout>
+    </>
   );
 }
