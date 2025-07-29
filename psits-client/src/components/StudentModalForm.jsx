@@ -10,9 +10,19 @@ export default function StudentModalForm({
 }) {
   const [id, setId] = useState("");
   const [name, setName] = useState("");
+  const [course, setCourse] = useState("");
   const [level, setLevel] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isMember, setIsMember] = useState(true);
+
+  const handleIsMemberChange = (e) => {
+    setIsMember(e.target.checked);
+  };
+
+  const handleCourseChange = (e) => {
+    setCourse(e.target.value);
+  };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -34,7 +44,16 @@ export default function StudentModalForm({
     e.preventDefault();
     onClose();
     try {
-      const studentData = { id, name, password, level, email };
+      const studentData = {
+        id,
+        name,
+        password,
+        level: `${course}-${level}`,
+        is_psits_member: isMember,
+        email,
+      };
+      console.log(studentData);
+
       setPassword("");
       await OnSubmit(studentData);
       onClose();
@@ -84,7 +103,19 @@ export default function StudentModalForm({
               value={name}
               onChange={handleNameChange}
             />
-            <div className="flex justify-between gap-4 items-center">
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                value={isMember}
+                onChange={handleIsMemberChange}
+                className="checkbox checkbox-sm checkbox-primary"
+              />
+              <legend className="fieldset-legend text-sm p-0">
+                PSITS Member
+              </legend>
+            </div>
+
+            <div className="flex justify-start gap-4 items-center">
               <div>
                 <legend className="fieldset-legend text-sm p-1">
                   Student ID
@@ -98,11 +129,23 @@ export default function StudentModalForm({
                 />
               </div>
               <div>
+                <legend className="fieldset-legend text-sm p-1">Course</legend>
+                <select
+                  className="select w-fit"
+                  value={course}
+                  onChange={handleCourseChange}
+                >
+                  <option selected>Select Course</option>
+                  <option>BSIT</option>
+                  <option>CS</option>
+                </select>
+              </div>
+              <div>
                 <legend className="fieldset-legend text-sm p-1">Level</legend>
                 <input
                   type="text"
-                  className="input w-full"
-                  placeholder="BSIT-3E"
+                  className="input w-20"
+                  placeholder="1A"
                   value={level}
                   onChange={handleLevelChange}
                 />
