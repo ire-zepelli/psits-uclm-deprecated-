@@ -35,9 +35,9 @@ export default function Login() {
         }
       );
 
-      console.log(response.data.isAdmin);
+      console.log(response.data.user_type);
       if (response.status == 200) {
-        if (response.data.isAdmin) {
+        if (response.data.user_type) {
           console.log("routing to admin");
           navigate("/admin");
         } else {

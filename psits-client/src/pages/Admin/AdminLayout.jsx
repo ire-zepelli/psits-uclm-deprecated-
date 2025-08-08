@@ -27,7 +27,7 @@ export default function AdminLayout() {
         );
         console.log("User is an admin.");
 
-        if (!response.data.isAdmin) {
+        if (!response.data.user_type) {
           navigate("/error/401 Forbidden");
         } else {
           setIsLoading(false);

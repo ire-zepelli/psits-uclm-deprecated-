@@ -2,7 +2,9 @@ import { query } from "../db.js";
 import { compare } from "bcrypt";
 
 export const login = async (id, password) => {
-  const { rows } = await query(`SELECT * FROM students WHERE id = ${id}`);
+  const { rows } = await query(
+    `SELECT * FROM user_auth WHERE username = ${id}`
+  );
 
   if (rows.length === 0) throw new Error("Invalid user or password");
 
@@ -11,8 +13,9 @@ export const login = async (id, password) => {
   const validPassword = await compare(password, user.password);
 
   console.log("user:", user);
+  console.log("isValid", validPassword);
 
-  return { validPassword, isAdmin: user.is_admin };
+  if (!validPassword) throw new Error("Invalid user or password");
+
+  return { user: user.username, id: user.id, user_type: user.user_type };
 };
-
-//to be revised tomorrow

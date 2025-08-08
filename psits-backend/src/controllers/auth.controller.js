@@ -4,25 +4,19 @@ export const login = async (req, res) => {
   try {
     const { user, password } = req.body;
 
-    if (!user || !password) {
-      return res
-        .status(400)
-        .json({ msg: "Username and password are required" });
-    }
+    if (!user || !password)
+      res.status(400).json({ msg: "Username and password are required." });
 
     console.log("Session ID:", req.sessionID);
 
     const result = await authService.login(user, password);
 
-    if (result?.validPassword) {
-      req.session.user = { user, isAdmin: result.isAdmin };
+    req.session.user = result;
+    console.log("session:", req.session.user);
 
-      return res.status(200).json(req.session.user);
-    }
-
-    return res.status(401).json({ msg: "Invalid Credentials" });
-  } catch (error) {
-    return res.status(500).json({ message: "Internal Server Error" });
+    return res.status(200).json(req.session.user);
+  } catch (err) {
+    res.status(500).json({ msg: "Internal Servel Error" });
   }
 };
 
