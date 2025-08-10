@@ -13,7 +13,10 @@ export const getStudents = async (req, res) => {
 export const createStudent = async (req, res) => {
   try {
     const studentData = req.body;
-    const newStudent = await studentService.createStudent(studentData);
+    const newStudent = await studentService.createStudent(
+      studentData,
+      req.session.user.user
+    );
     res.status(200).json(newStudent);
   } catch (error) {
     console.error("Error adding students: ", error);

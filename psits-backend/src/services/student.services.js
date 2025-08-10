@@ -1,3 +1,4 @@
+import session from "express-session";
 import { query } from "../db.js";
 import bcrypt from "bcrypt";
 
@@ -8,15 +9,48 @@ export const getStudents = async () => {
   return rows;
 };
 
-export const createStudent = async (studentData) => {
+export const createAuth = async (username, password, created_by) => {
+  const { rows } = await query(
+    `INSERT INTO user_auth (
+  username,
+  password,
+  created_by
+) VALUES (
+  $1,
+  $2,
+  $3
+)
+RETURNING id`,
+    [username, password, created_by]
+  );
+
+  return rows[0];
+};
+
+export const createStudent = async (studentData, created_by) => {
   const { id, name, password, level, email } = studentData;
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
+  const { id: user_auth_id } = await createAuth(id, hashedPassword, created_by);
+
   const { rows } = await query(
-    `INSERT INTO students (id, name, password, level, email)
-     VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-    [id, name, hashedPassword, level, email]
+    `INSERT INTO profile (
+  user_auth_id,
+  school_id,
+  is_psits_member,
+  name,
+  email,
+  level
+) VALUES (
+  $1,         
+  $2,       
+  $3,
+  $4,
+  $5,
+  $6
+) RETURNING *`,
+    [user_auth_id, id, true, name, email, level]
   );
 
   return rows[0];

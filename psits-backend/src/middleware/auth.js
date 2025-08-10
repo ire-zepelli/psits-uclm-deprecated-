@@ -8,7 +8,7 @@ export const requireLogin = (req, res, next) => {
 export const authorizeAdmin = (req, res, next) => {
   console.log("im in middleware:", req.session);
 
-  if (!req.session?.user?.isAdmin) {
+  if (!req.session?.user?.user_type) {
     return res.status(403).json({ error: "Forbidden: Admins only" });
   }
 
