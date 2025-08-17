@@ -64,17 +64,19 @@ export default function StudentModalForm({
 
   useEffect(() => {
     if (mode === "edit" && studentData) {
-      setId(studentData.id);
+      setId(studentData.school_id);
       setName(studentData.name);
       setPassword(studentData.password);
       setLevel(studentData.level);
       setEmail(studentData.email);
+      setIsMember(studentData.is_psits_member);
     } else {
       setEmail("");
       setName("");
       setPassword("");
       setId("");
       setLevel("");
+      setIsMember(true);
     }
   }, [mode, studentData]);
 
@@ -106,7 +108,7 @@ export default function StudentModalForm({
             <div className="flex items-center gap-2">
               <input
                 type="checkbox"
-                value={isMember}
+                checked={isMember}
                 onChange={handleIsMemberChange}
                 className="checkbox checkbox-sm checkbox-primary"
               />

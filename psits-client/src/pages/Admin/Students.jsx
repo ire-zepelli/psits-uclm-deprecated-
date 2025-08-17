@@ -75,11 +75,11 @@ export default function Students() {
         console.error("Error adding client: ", error);
       }
     } else {
-      console.log("Modal Mode: Edit");
-      console.log("Updating Student with ID: ", newStudentData["account_id"]);
+      console.log("Modal Mode: Edit", newStudentData);
+      console.log("Updating Student with ID: ", studentData["id"]);
       try {
         const response = await axios.put(
-          `http://localhost:3000/api/students/${studentData["account_id"]}`,
+          `http://localhost:3000/api/students/${studentData["id"]}`,
           newStudentData
         );
 
@@ -88,12 +88,11 @@ export default function Students() {
           prevData.map((student) =>
             student.id === studentData.id
               ? {
-                  account_id: response.account_id,
                   id: response.data.id,
+                  school_id: response.data.school_id,
                   name: response.data.name,
                   level: response.data.level,
                   email: response.data.email,
-                  last_online: response.data.last_online,
                 }
               : student
           )
@@ -115,7 +114,7 @@ export default function Students() {
         await axios.delete(`http://localhost:3000/api/students/${id}`);
 
         setTableData((prevData) =>
-          prevData.filter((student) => student.account_id !== id)
+          prevData.filter((student) => student.id !== id)
         );
       } catch (error) {
         console.log(error);
@@ -126,8 +125,8 @@ export default function Students() {
   const columns = [
     {
       title: "Student ID",
-      dataIndex: "id",
-      key: "id",
+      dataIndex: "school_id",
+      key: "school_id",
     },
     {
       title: "Name",
@@ -152,6 +151,8 @@ export default function Students() {
           <button
             className="btn btn-secondary"
             onClick={() => {
+              console.log(record);
+
               handleOpen("edit", record);
             }}
           >
@@ -160,7 +161,7 @@ export default function Students() {
           <button
             className="btn btn-accent"
             onClick={() => {
-              handleDelete(record.account_id);
+              handleDelete(record.id  );
             }}
           >
             Delete

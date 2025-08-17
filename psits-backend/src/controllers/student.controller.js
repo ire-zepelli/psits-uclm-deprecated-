@@ -26,12 +26,12 @@ export const createStudent = async (req, res) => {
 
 export const updateStudent = async (req, res) => {
   try {
-    const studentID = req.params.id;
+    const profile_id = req.params.id;
     const studentData = req.body;
 
     const updatedStudent = await studentService.updateStudent(
       studentData,
-      studentID
+      profile_id
     );
 
     if (!updatedStudent)

@@ -4,7 +4,7 @@ import { authorizeAdmin } from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.use(authorizeAdmin);
+// router.use(authorizeAdmin);
 
 router.get("/", studentController.getStudents);
 router.post("/", studentController.createStudent);

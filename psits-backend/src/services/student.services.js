@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 
 export const getStudents = async () => {
   const { rows } = await query(
-    "SELECT account_id, id, name, level, email FROM students ORDER BY account_id ASC"
+    "SELECT id, school_id, name, level, email, is_psits_member, user_auth_id, available_prints FROM profile ORDER BY id ASC"
   );
   return rows;
 };
@@ -28,7 +28,7 @@ RETURNING id`,
 };
 
 export const createStudent = async (studentData, created_by) => {
-  const { id, name, password, level, email } = studentData;
+  const { id, name, password, level, email, is_psits_member } = studentData;
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -50,42 +50,70 @@ export const createStudent = async (studentData, created_by) => {
   $5,
   $6
 ) RETURNING *`,
-    [user_auth_id, id, true, name, email, level]
+    [user_auth_id, id, is_psits_member, name, email, level]
   );
 
   return rows[0];
 };
 
-export const updateStudent = async (studentData, accountId) => {
-  const { id, name, password, level, email } = studentData;
-  if (password == undefined) {
-    const { rows } = await query(
-      `UPDATE students SET id = $1, name = $2, level = $3, email = $4
-    WHERE account_id = $5 RETURNING *`,
-      [id, name, level, email, accountId]
-    );
+export const updateStudent = async (studentData, profile_id) => {
+  const {
+    student_id: school_id,
+    name,
+    password,
+    level,
+    email,
+    is_psits_member,
+  } = studentData;
 
+  console.log(studentData);
+  console.log(profile_id);
+
+  if (password == null || password.trim() === "") {
+    const { rows } = await query(
+      `UPDATE profile 
+   SET school_id = $1, name = $2, is_psits_member = $3, email = $4, level = $5
+   WHERE id = $6 RETURNING *`,
+      [school_id, name, is_psits_member, email, level, profile_id]
+    );
     return rows[0];
   } else {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const { rows } = await query(
-      `UPDATE students SET id = $1, name = $2, password = $3, level = $4, email = $5
-      WHERE account_id = $6 RETURNING *`,
-      [id, name, hashedPassword, level, email, accountId]
+      `UPDATE profile 
+   SET school_id = $1, name = $2, is_psits_member = $3, email = $4, level = $5
+   WHERE id = $6 RETURNING user_auth_id`,
+      [school_id, name, is_psits_member, email, level, profile_id]
     );
 
-    return rows[0];
+    const auth_id = rows[0].user_auth_id;
+
+    const { rows: AuthRows } = await query(
+      `UPDATE user_auth SET username = $1, password = $2, updated_at = NOW() WHERE id = $3 RETURNING *`,
+      [school_id, password, auth_id]
+    );
+
+    return AuthRows[0];
   }
 };
 
-export const deleteStudent = async (accountId) => {
-  const { rowCount } = await query(
-    `DELETE FROM students WHERE account_id = $1`,
-    [accountId]
+export const deleteStudent = async (profile_id) => {
+  const { rows } = await query(
+    `SELECT user_auth_id FROM profile WHERE id = $1`,
+    [profile_id]
   );
 
-  return rowCount > 0;
+  if (rows.length == 0) {
+    return false;
+  }
+
+  const user_auth_id = rows[0].user_auth_id;
+
+  await query(`DELETE FROM profile WHERE id = $1`, [profile_id]);
+  await query(`DELETE FROM user_auth WHERE id = $1`, [user_auth_id]);
+
+  return true;
 };
 
 export const searchStudent = async (searchTerm) => {
